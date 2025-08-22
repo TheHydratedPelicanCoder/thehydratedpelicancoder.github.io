@@ -9,20 +9,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        @media (max-width: 360px) {
-            .profile-content h1 {
-                font-size: 1.8rem;
-            }
-            
-            .cta-buttons {
-                gap: 0.6rem;
-            }
-            
-            .contact-btn {
-                padding: 0.8rem;
-                font-size: 0.9rem;
-                min-width: 100px;
-            }
         }
         
         body {
@@ -30,6 +16,29 @@
             background: #191919;
             color: #e6e6e6;
             line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(74, 144, 226, 0.1), transparent 40%),
+                radial-gradient(circle at 85% 30%, rgba(91, 163, 245, 0.1), transparent 40%),
+                radial-gradient(circle at 50% 90%, rgba(74, 144, 226, 0.05), transparent 50%);
+            animation: backgroundDrift 25s ease-in-out infinite;
+        }
+
+        @keyframes backgroundDrift {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 0%; }
         }
         
         .header {
@@ -37,18 +46,6 @@
             padding: 3rem 0;
             position: relative;
             overflow: hidden;
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600"><rect fill="%23333" width="1000" height="600"/><rect fill="%234a90e2" x="700" y="100" width="250" height="150" rx="10"/><rect fill="%23357abd" x="720" y="120" width="210" height="110" rx="5"/><circle fill="%235ba3f5" cx="825" cy="175" r="30"/></svg>') no-repeat center;
-            background-size: cover;
-            opacity: 0.4;
         }
         
         .container {
@@ -74,8 +71,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3.5rem;
             border: 4px solid rgba(74, 144, 226, 0.3);
+            flex-shrink: 0;
+        }
+
+        .profile-img svg {
+            width: 50%;
+            height: 50%;
+            color: #e6e6e6;
         }
         
         .profile-content h1 {
@@ -216,20 +219,44 @@
             border-radius: 10px 10px 0 0;
         }
         
+        .project-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
         .project-card {
             background: linear-gradient(135deg, #2d2d2d, #3a3a3a);
             border-radius: 15px;
             padding: 2.5rem;
-            margin-bottom: 2rem;
             border-left: 5px solid #4a90e2;
             transition: all 0.3s ease;
             border: 1px solid rgba(74, 144, 226, 0.1);
         }
         
-        .project-card:hover {
+        .project-card-link:hover .project-card {
             transform: translateX(8px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-            border-left-color: #5ba3f5;
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                box-shadow: 0 0 20px rgba(74, 144, 226, 0.2);
+                border-left-color: #4a90e2;
+            }
+            50% {
+                box-shadow: 0 0 35px rgba(74, 144, 226, 0.4);
+                border-left-color: #5ba3f5;
+            }
+            100% {
+                box-shadow: 0 0 20px rgba(74, 144, 226, 0.2);
+                border-left-color: #4a90e2;
+            }
         }
         
         .project-card h3 {
@@ -244,21 +271,6 @@
             font-style: italic;
             margin-bottom: 1.5rem;
             font-size: 1.05rem;
-        }
-        
-        .repo-link {
-            color: #4a90e2;
-            text-decoration: none;
-            font-weight: 500;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-            transition: color 0.3s ease;
-        }
-        
-        .repo-link:hover {
-            color: #5ba3f5;
         }
         
         .achievements {
@@ -325,11 +337,19 @@
             padding: 1rem;
             border-radius: 10px;
             border-left: 3px solid #4a90e2;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: rgba(74, 144, 226, 0.1);
+            border-left-color: #5ba3f5;
+            transform: translateY(-2px);
         }
         
-        .project-link a {
+        .project-link strong {
             color: #4a90e2;
-            text-decoration: none;
             font-weight: 600;
         }
         
@@ -337,90 +357,6 @@
             color: #b3b3b3;
             font-size: 0.9rem;
             margin-top: 0.5rem;
-        }
-        
-        @media (max-width: 768px) {
-            .profile-section {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .profile-content h1 {
-                font-size: 2.5rem;
-            }
-            
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .tabs {
-                flex-wrap: wrap;
-            }
-            
-            .cta-buttons {
-                justify-content: center;
-                gap: 0.8rem;
-            }
-            
-            .contact-btn {
-                padding: 0.7rem 1.2rem;
-                font-size: 0.95rem;
-                min-width: 120px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .header {
-                padding: 2rem 0;
-            }
-            
-            .container {
-                padding: 0 1rem;
-            }
-            
-            .profile-content h1 {
-                font-size: 2rem;
-            }
-            
-            .profile-content p {
-                font-size: 1rem;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                width: 100%;
-                gap: 0.8rem;
-            }
-            
-            .contact-btn {
-                width: 100%;
-                max-width: 280px;
-                padding: 1rem;
-                font-size: 1rem;
-                justify-content: center;
-            }
-            
-            .profile-img {
-                width: 120px;
-                height: 120px;
-                font-size: 3rem;
-            }
-            
-            .project-card {
-                padding: 1.5rem;
-            }
-            
-            .project-card h3 {
-                font-size: 1.2rem;
-            }
-            
-            .section h2 {
-                font-size: 1.8rem;
-            }
-            
-            .skill-card {
-                padding: 1.5rem;
-            }
         }
         
         .modal {
@@ -503,6 +439,7 @@
             border-radius: 12px;
             transition: all 0.3s ease;
             border: 1px solid rgba(74, 144, 226, 0.2);
+            text-decoration: none;
         }
         
         .contact-item:hover {
@@ -521,6 +458,7 @@
             background: #4a90e2;
             border-radius: 50%;
             color: white;
+            flex-shrink: 0;
         }
         
         .contact-item .info {
@@ -537,15 +475,11 @@
             color: #e6e6e6;
             margin: 0;
             font-size: 1rem;
-        }
-        
-        .contact-item a {
-            color: #e6e6e6;
-            text-decoration: none;
+            word-break: break-all;
             transition: color 0.3s ease;
         }
         
-        .contact-item a:hover {
+        .contact-item:hover .info p {
             color: #4a90e2;
         }
         
@@ -556,8 +490,88 @@
             margin-top: 1rem;
             font-size: 0.9rem;
         }
+
+        @media (max-width: 768px) {
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-content h1 {
+                font-size: 2.5rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .tabs {
+                flex-wrap: wrap;
+            }
+            
+            .cta-buttons {
+                justify-content: center;
+                gap: 0.8rem;
+            }
+            
+            .contact-btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.95rem;
+                min-width: 120px;
+            }
+        }
         
         @media (max-width: 480px) {
+            .header {
+                padding: 2rem 0;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .profile-content h1 {
+                font-size: 2rem;
+            }
+            
+            .profile-content p {
+                font-size: 1rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+                gap: 0.8rem;
+            }
+            
+            .contact-btn {
+                width: 100%;
+                max-width: 280px;
+                padding: 1rem;
+                font-size: 1rem;
+                justify-content: center;
+            }
+            
+            .profile-img {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .project-card {
+                padding: 1.5rem;
+            }
+            
+            .project-card h3 {
+                font-size: 1.2rem;
+            }
+            
+            .section h2 {
+                font-size: 1.8rem;
+            }
+            
+            .skill-card {
+                padding: 1.5rem;
+            }
             .modal-content {
                 padding: 2rem;
                 margin: 1rem;
@@ -579,18 +593,36 @@
                 font-size: 2rem;
             }
         }
+
+        @media (max-width: 360px) {
+            .profile-content h1 {
+                font-size: 1.8rem;
+            }
+            
+            .cta-buttons {
+                gap: 0.6rem;
+            }
+            
+            .contact-btn {
+                padding: 0.8rem;
+                font-size: 0.9rem;
+                min-width: 100px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <div class="container">
             <div class="profile-section">
-                <div class="profile-img">👩‍💻</div>
+                <div class="profile-img">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+                </div>
                 <div class="profile-content">
                     <h1>Hey, I'm Glory Yusuf!</h1>
                     <p>I'm a DevOps Engineer with hands-on experience in cloud infrastructure automation, containerization, and CI/CD pipeline development. I specialize in AWS cloud services, Terraform infrastructure provisioning, and microservices deployment using Docker and Kubernetes. My projects have helped streamline deployment processes and reduce infrastructure setup time significantly.</p>
                     <div class="cta-buttons">
-                        <a href="contact.html" class="contact-btn" onclick="openContactModal(event)">📧 Contact me</a>
+                        <a href="#" class="contact-btn" id="openContactModalBtn">📧 Contact me</a>
                         <a href="https://drive.google.com/file/d/1yWAsjOi6rlVp5Ehh8p1Cik5xysED6-Qq/view?usp=sharing" class="contact-btn">💼 View Resume</a>
                         <a href="https://github.com/TheHydratedPelicanCoder" class="contact-btn github-btn" target="_blank">🐙 GitHub Profile</a>
                     </div>
@@ -633,110 +665,108 @@
         <div class="section">
             <h2>Projects</h2>
             <div class="tabs">
-                <button class="tab active">⭐ Featured</button>
-                <button class="tab">📁 All Projects</button>
+                <button class="tab active" data-tab="featured">⭐ Featured</button>
+                <button class="tab" data-tab="all">📁 All Projects</button>
             </div>
 
-            <div class="project-card">
-                <h3>🏗️ Terraform-Ansible Infrastructure Automation</h3>
-                <p class="subtitle">Automated infrastructure provisioning and configuration management solution</p>
-                <a href="https://github.com/TheHydratedPelicanCoder/Terraform-Ansible" class="repo-link">🔗 Repository: Terraform-Ansible</a>
-                
-                <ul class="achievements">
-                    <li>Built comprehensive infrastructure automation using Terraform and Ansible</li>
-                    <li>Automated server provisioning and application deployment</li>
-                    <li>Implemented configuration management for consistent environments</li>
-                    <li>Reduced manual infrastructure setup time from hours to minutes</li>
-                </ul>
-                
-                <div class="tags">
-                    <span class="tag">Terraform</span>
-                    <span class="tag">Ansible</span>
-                    <span class="tag">Infrastructure as Code</span>
-                    <span class="tag">Automation</span>
-                </div>
-            </div>
+            <div id="projects-container">
+                <a href="https://github.com/TheHydratedPelicanCoder/Terraform-Ansible" target="_blank" class="project-card-link" data-category="featured">
+                    <div class="project-card">
+                        <h3>🏗️ Terraform-Ansible Infrastructure Automation</h3>
+                        <p class="subtitle">Automated infrastructure provisioning and configuration management solution</p>
+                        <ul class="achievements">
+                            <li>Built comprehensive infrastructure automation using Terraform and Ansible</li>
+                            <li>Automated server provisioning and application deployment</li>
+                            <li>Implemented configuration management for consistent environments</li>
+                            <li>Reduced manual infrastructure setup time from hours to minutes</li>
+                        </ul>
+                        <div class="tags">
+                            <span class="tag">Terraform</span>
+                            <span class="tag">Ansible</span>
+                            <span class="tag">Infrastructure as Code</span>
+                            <span class="tag">Automation</span>
+                        </div>
+                    </div>
+                </a>
 
-            <div class="project-card">
-                <h3>🏢 AWS 2-Tier Architecture with Terraform</h3>
-                <p class="subtitle">Scalable web application infrastructure on AWS using Terraform modules</p>
-                <a href="https://github.com/TheHydratedPelicanCoder/Terraform-2-tier-architecture" class="repo-link">🔗 Repository: Terraform-2-tier-architecture</a>
-                
-                <ul class="achievements">
-                    <li>Designed and implemented 2-tier architecture on AWS</li>
-                    <li>Created reusable Terraform modules for infrastructure components</li>
-                    <li>Implemented best practices for security and scalability</li>
-                    <li>Automated AWS resource provisioning with Infrastructure as Code</li>
-                </ul>
-                
-                <div class="tags">
-                    <span class="tag">Terraform</span>
-                    <span class="tag">AWS</span>
-                    <span class="tag">Infrastructure Design</span>
-                    <span class="tag">HCL</span>
-                </div>
-            </div>
+                <a href="https://github.com/TheHydratedPelicanCoder/Terraform-2-tier-architecture" target="_blank" class="project-card-link" data-category="featured">
+                    <div class="project-card">
+                        <h3>🏢 AWS 2-Tier Architecture with Terraform</h3>
+                        <p class="subtitle">Scalable web application infrastructure on AWS using Terraform modules</p>
+                        <ul class="achievements">
+                            <li>Designed and implemented 2-tier architecture on AWS</li>
+                            <li>Created reusable Terraform modules for infrastructure components</li>
+                            <li>Implemented best practices for security and scalability</li>
+                            <li>Automated AWS resource provisioning with Infrastructure as Code</li>
+                        </ul>
+                        <div class="tags">
+                            <span class="tag">Terraform</span>
+                            <span class="tag">AWS</span>
+                            <span class="tag">Infrastructure Design</span>
+                            <span class="tag">HCL</span>
+                        </div>
+                    </div>
+                </a>
 
-            <div class="project-card">
-                <h3>🔄 Microservices Migration & Deployment</h3>
-                <p class="subtitle">Complete microservices architecture implementation and deployment strategy</p>
-                <a href="https://github.com/TheHydratedPelicanCoder/Microservices-Migration" class="repo-link">🔗 Repository: Microservices-Migration</a>
-                
-                <ul class="achievements">
-                    <li>Successfully migrated monolithic application to microservices</li>
-                    <li>Implemented containerized deployment strategy</li>
-                    <li>Set up service discovery and inter-service communication</li>
-                    <li>Reduced application deployment complexity and improved scalability</li>
-                </ul>
-                
-                <div class="tags">
-                    <span class="tag">Microservices</span>
-                    <span class="tag">Docker</span>
-                    <span class="tag">HCL</span>
-                    <span class="tag">Architecture Design</span>
-                </div>
-            </div>
+                <a href="https://github.com/TheHydratedPelicanCoder/Microservices-Migration" target="_blank" class="project-card-link" data-category="featured">
+                    <div class="project-card">
+                        <h3>🔄 Microservices Migration & Deployment</h3>
+                        <p class="subtitle">Complete microservices architecture implementation and deployment strategy</p>
+                        <ul class="achievements">
+                            <li>Successfully migrated monolithic application to microservices</li>
+                            <li>Implemented containerized deployment strategy</li>
+                            <li>Set up service discovery and inter-service communication</li>
+                            <li>Reduced application deployment complexity and improved scalability</li>
+                        </ul>
+                        <div class="tags">
+                            <span class="tag">Microservices</span>
+                            <span class="tag">Docker</span>
+                            <span class="tag">HCL</span>
+                            <span class="tag">Architecture Design</span>
+                        </div>
+                    </div>
+                </a>
 
-            <div class="project-card">
-                <h3>☸️ Docker + Google Kubernetes Engine Deployment</h3>
-                <p class="subtitle">Containerized application deployment on Google Cloud Platform</p>
-                <a href="https://github.com/TheHydratedPelicanCoder/docker-gke" class="repo-link">🔗 Repository: docker-gke</a>
-                
-                <ul class="achievements">
-                    <li>Containerized web applications using Docker</li>
-                    <li>Deployed and managed applications on Google Kubernetes Engine</li>
-                    <li>Implemented container orchestration and scaling strategies</li>
-                    <li>Set up automated deployment pipelines to GKE</li>
-                </ul>
-                
-                <div class="tags">
-                    <span class="tag">Docker</span>
-                    <span class="tag">Kubernetes</span>
-                    <span class="tag">GCP</span>
-                    <span class="tag">GKE</span>
-                </div>
+                <a href="https://github.com/TheHydratedPelicanCoder/docker-gke" target="_blank" class="project-card-link" data-category="all">
+                    <div class="project-card">
+                        <h3>☸️ Docker + Google Kubernetes Engine Deployment</h3>
+                        <p class="subtitle">Containerized application deployment on Google Cloud Platform</p>
+                        <ul class="achievements">
+                            <li>Containerized web applications using Docker</li>
+                            <li>Deployed and managed applications on Google Kubernetes Engine</li>
+                            <li>Implemented container orchestration and scaling strategies</li>
+                            <li>Set up automated deployment pipelines to GKE</li>
+                        </ul>
+                        <div class="tags">
+                            <span class="tag">Docker</span>
+                            <span class="tag">Kubernetes</span>
+                            <span class="tag">GCP</span>
+                            <span class="tag">GKE</span>
+                        </div>
+                    </div>
+                </a>
             </div>
 
             <div class="additional-projects">
                 <h3>📁 Additional Projects & Learning</h3>
                 
                 <div class="project-links">
-                    <div class="project-link">
-                        <a href="https://github.com/TheHydratedPelicanCoder/Docker-Laravel-App">🐳 Docker-Laravel-App</a>
+                    <a href="https://github.com/TheHydratedPelicanCoder/Docker-Laravel-App" target="_blank" class="project-link">
+                        <strong>🐳 Docker-Laravel-App</strong>
                         <p>Full-stack PHP application containerization and deployment</p>
-                    </div>
-                    <div class="project-link">
-                        <a href="https://github.com/TheHydratedPelicanCoder/number_classification_api">🧠 ML API Deployment</a>
+                    </a>
+                    <a href="https://github.com/TheHydratedPelicanCoder/number_classification_api" target="_blank" class="project-link">
+                        <strong>🧠 ML API Deployment</strong>
                         <p>Production-ready ML model deployment with modern DevOps practices</p>
-                    </div>
-                    <div class="project-link">
-                        <a href="https://github.com/TheHydratedPelicanCoder/aws-elastic-beanstalk-express-js-sample">☁️ AWS DevOps Learning</a>
+                    </a>
+                    <a href="https://github.com/TheHydratedPelicanCoder/aws-elastic-beanstalk-express-js-sample" target="_blank" class="project-link">
+                        <strong>☁️ AWS DevOps Learning</strong>
                         <p>Hands-on AWS DevOps practices using Elastic Beanstalk</p>
-                    </div>
-                    <div class="project-link">
-                        <a href="https://github.com/TheHydratedPelicanCoder/altschool-cloud-exercises">📚 Cloud Engineering Exercises</a>
+                    </a>
+                    <a href="https://github.com/TheHydratedPelicanCoder/altschool-cloud-exercises" target="_blank" class="project-link">
+                        <strong>📚 Cloud Engineering Exercises</strong>
                         <p>Comprehensive cloud engineering exercises and implementations</p>
-                    </div>
+                    </a>
                 </div>
 
                 <h3>🎓 Professional Development</h3>
@@ -753,107 +783,140 @@
     <!-- Contact Modal -->
     <div id="contactModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeContactModal()">&times;</span>
+            <span class="close" id="closeContactModalBtn">&times;</span>
             <h2>Let's Connect! 🚀</h2>
             <div class="contact-info">
-                <div class="contact-item">
-                    <div class="icon">📧</div>
+                <a href="mailto:gloryyusuf20@gmail.com" class="contact-item">
+                    <div class="icon">
+                        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    </div>
                     <div class="info">
                         <h3>Email</h3>
-                        <p><a href="mailto:gloryyusuf20@gmail.com">gloryyusuf20@gmail.com</a></p>
+                        <p>Send a Message</p>
                     </div>
-                </div>
-                <div class="contact-item">
-                    <div class="icon">🐦</div>
+                </a>
+                <a href="https://x.com/gloryyusuf52" target="_blank" class="contact-item">
+                    <div class="icon">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+                    </div>
                     <div class="info">
                         <h3>Twitter</h3>
-                        <p><a href="https://x.com/gloryyusuf52" target="_blank">@gloryyusuf52</a></p>
+                        <p>Follow on Twitter</p>
                     </div>
-                </div>
-                <div class="contact-item">
-                    <div class="icon">💼</div>
+                </a>
+                <a href="https://linkedin.com/in/gloryyusuf" target="_blank" class="contact-item">
+                    <div class="icon">
+                        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z"></path></svg>
+                    </div>
                     <div class="info">
                         <h3>LinkedIn</h3>
-                        <p><a href="https://linkedin.com/in/gloryyusuf" target="_blank">linkedin.com/in/gloryyusuf</a></p>
+                        <p>Connect on LinkedIn</p>
                     </div>
-                </div>
-                <div class="contact-item">
-                    <div class="icon">🌐</div>
-                    <div class="info">
-                        <h3>Portfolio</h3>
-                        <p><a href="https://github.com/TheHydratedPelicanCoder/Port" target="_blank">View My Work</a></p>
-                    </div>
-                </div>
+                </a>
             </div>
             <p class="social-note">Feel free to reach out for collaboration, opportunities, or just to say hi! 👋</p>
         </div>
     </div>
 
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('contactModal');
+        const openBtn = document.getElementById('openContactModalBtn');
+        const closeBtn = document.getElementById('closeContactModalBtn');
+
         function openContactModal(event) {
             event.preventDefault();
-            const modal = document.getElementById('contactModal');
             modal.classList.add('show');
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
         }
-        
+
         function closeContactModal() {
-            const modal = document.getElementById('contactModal');
             modal.classList.remove('show');
-            document.body.style.overflow = 'auto'; // Re-enable scrolling
+            document.body.style.overflow = 'auto';
         }
-        
-        // Close modal when clicking outside of it
-        window.onclick = function(event) {
-            const modal = document.getElementById('contactModal');
+
+        openBtn.addEventListener('click', openContactModal);
+        closeBtn.addEventListener('click', closeContactModal);
+
+        window.addEventListener('click', function(event) {
             if (event.target === modal) {
                 closeContactModal();
             }
-        }
-        
-        // Close modal with Escape key
+        });
+
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 closeContactModal();
             }
         });
-        
-        // Add smooth scrolling and interactive effects
-        document.addEventListener('DOMContentLoaded', function() {
-            // Tab functionality
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                });
+
+        // --- TAB LOGIC ---
+        const tabs = document.querySelectorAll('.tab');
+        const projects = document.querySelectorAll('.project-card-link');
+
+        function filterProjects(selectedCategory) {
+            projects.forEach(project => {
+                const projectCategory = project.getAttribute('data-category');
+                
+                // Fade out all projects first
+                project.style.opacity = '0';
+                project.style.transform = 'scale(0.95)';
+                project.style.display = 'none';
+
+                // Check if the project should be shown
+                if (selectedCategory === 'all' || projectCategory === 'featured') {
+                    // Use a timeout to allow the fade-out to be visible before changing display
+                    setTimeout(() => {
+                        project.style.display = 'block';
+                        // Another timeout to trigger the fade-in
+                        setTimeout(() => {
+                            project.style.opacity = '1';
+                            project.style.transform = 'scale(1)';
+                        }, 50);
+                    }, 200);
+                }
             });
-            
-            // Smooth animations on scroll
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-            
-            // Observe project cards for animations
-            const projectCards = document.querySelectorAll('.project-card, .skill-card');
-            projectCards.forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(card);
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Update active tab class
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                const selectedCategory = tab.getAttribute('data-tab');
+                filterProjects(selectedCategory);
             });
         });
+
+        // Initial filter on page load
+        filterProjects('featured');
+
+
+        // --- SCROLL ANIMATION LOGIC ---
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target); // Stop observing after animation
+                }
+            });
+        }, observerOptions);
+        
+        const elementsToAnimate = document.querySelectorAll('.skill-card, .project-card-link, .additional-projects');
+        elementsToAnimate.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    });
     </script>
 </body>
-
 </html>
