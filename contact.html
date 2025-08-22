@@ -81,8 +81,9 @@
             margin-bottom: 0.5rem;
             background: linear-gradient(45deg, #4a90e2, #5ba3f5);
             -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             background-clip: text;
+            color: transparent; /* Use color: transparent as a fallback */
+            -webkit-text-fill-color: transparent;
         }
         
         .job-title {
@@ -114,6 +115,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            width: 100%; /* <-- ADD THIS LINE */
         }
         
         .social-link::before {
@@ -288,7 +290,8 @@
         
         <!-- Back Link -->
         <div>
-            <a href="/" class="back-link" onclick="history.back()">
+            <!-- The onclick is removed for a more reliable fallback -->
+            <a href="index.html" class="back-link">
                 ← Back to Portfolio
             </a>
         </div>
@@ -333,8 +336,3 @@
 </body>
 
 </html>
-
-
-
-
-
