@@ -663,21 +663,21 @@
             </div>
 
             <div id="projects-container">
-                <a href="https://github.com/TheHydratedPelicanCoder/Terraform-Ansible" target="_blank" class="project-card-link" data-category="featured">
+                <a href="https://github.com/TheHydratedPelicanCoder/Docker-Laravel-App" target="_blank" class="project-card-link" data-category="featured">
                     <div class="project-card">
-                        <h3>🏗️ Terraform-Ansible Infrastructure Automation</h3>
-                        <p class="subtitle">Automated infrastructure provisioning and configuration management solution</p>
+                        <h3>🐳 Dockerized Laravel Application</h3>
+                        <p class="subtitle">Full-stack PHP application containerization and deployment</p>
                         <ul class="achievements">
-                            <li>Built comprehensive infrastructure automation using Terraform and Ansible</li>
-                            <li>Automated server provisioning and application deployment</li>
-                            <li>Implemented configuration management for consistent environments</li>
-                            <li>Reduced manual infrastructure setup time from hours to minutes</li>
+                            <li>Containerized a complete Laravel application with Nginx, PHP-FPM, and MySQL</li>
+                            <li>Utilized Docker Compose for easy local development and environment setup</li>
+                            <li>Optimized Docker images for production to reduce size and improve security</li>
+                            <li>Streamlined the development-to-production workflow</li>
                         </ul>
                         <div class="tags">
-                            <span class="tag">Terraform</span>
-                            <span class="tag">Ansible</span>
-                            <span class="tag">Infrastructure as Code</span>
-                            <span class="tag">Automation</span>
+                            <span class="tag">Docker</span>
+                            <span class="tag">Laravel</span>
+                            <span class="tag">PHP</span>
+                            <span class="tag">Nginx</span>
                         </div>
                     </div>
                 </a>
@@ -744,9 +744,9 @@
                 <h3>📁 Additional Projects & Learning</h3>
                 
                 <div class="project-links">
-                    <a href="https://github.com/TheHydratedPelicanCoder/Docker-Laravel-App" target="_blank" class="project-link">
-                        <strong>🐳 Docker-Laravel-App</strong>
-                        <p>Full-stack PHP application containerization and deployment</p>
+                    <a href="https://github.com/TheHydratedPelicanCoder/employee-management" target="_blank" class="project-link">
+                        <strong>🏢 Employee Management System</strong>
+                        <p>A full-stack web application for managing employee data.</p>
                     </a>
                     <a href="https://github.com/TheHydratedPelicanCoder/number_classification_api" target="_blank" class="project-link">
                         <strong>🧠 ML API Deployment</strong>
@@ -907,23 +907,7 @@
         let particles = [];
         const mouse = { x: null, y: null };
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            init(); // Re-initialize particles on resize
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        window.addEventListener('mousemove', (event) => {
-            mouse.x = event.x;
-            mouse.y = event.y;
-        });
-        window.addEventListener('mouseout', () => {
-            mouse.x = null;
-            mouse.y = null;
-        });
-
+        // Define the Particle class before it's used
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
@@ -952,6 +936,12 @@
             for (let i = 0; i < numberOfParticles; i++) {
                 particles.push(new Particle());
             }
+        }
+        
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init(); // Re-initialize particles on resize
         }
         
         function connect() {
@@ -984,7 +974,18 @@
             requestAnimationFrame(animate);
         }
         
-        init();
+        // Setup event listeners and initial calls
+        window.addEventListener('resize', resizeCanvas);
+        window.addEventListener('mousemove', (event) => {
+            mouse.x = event.x;
+            mouse.y = event.y;
+        });
+        window.addEventListener('mouseout', () => {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        resizeCanvas();
         animate();
     });
     </script>
