@@ -55,6 +55,11 @@
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
         }
+
+        @keyframes pulseGlowContact {
+            0%, 100% { box-shadow: 0 8px 25px var(--glow-color-start); }
+            50% { box-shadow: 0 10px 35px var(--glow-color-end); }
+        }
         
         .profile-img {
             width: 120px;
@@ -140,33 +145,35 @@
         
         .social-link:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.3);
-            border-color: rgba(74, 144, 226, 0.5);
-            background: rgba(74, 144, 226, 0.15);
+            animation: pulseGlowContact 2s infinite ease-in-out;
         }
         
         .linkedin-link:hover {
+            --glow-color-start: rgba(0, 119, 181, 0.3);
+            --glow-color-end: rgba(0, 119, 181, 0.5);
             background: rgba(0, 119, 181, 0.15);
             border-color: rgba(0, 119, 181, 0.5);
-            box-shadow: 0 8px 25px rgba(0, 119, 181, 0.3);
         }
         
         .twitter-link:hover {
+            --glow-color-start: rgba(29, 161, 242, 0.3);
+            --glow-color-end: rgba(29, 161, 242, 0.5);
             background: rgba(29, 161, 242, 0.15);
             border-color: rgba(29, 161, 242, 0.5);
-            box-shadow: 0 8px 25px rgba(29, 161, 242, 0.3);
         }
         
         .email-link:hover {
+            --glow-color-start: rgba(16, 185, 129, 0.3);
+            --glow-color-end: rgba(16, 185, 129, 0.5);
             background: rgba(16, 185, 129, 0.15);
             border-color: rgba(16, 185, 129, 0.5);
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
         }
         
         .calendly-link:hover {
+            --glow-color-start: rgba(0, 107, 255, 0.3);
+            --glow-color-end: rgba(0, 107, 255, 0.5);
             background: rgba(0, 107, 255, 0.15);
             border-color: rgba(0, 107, 255, 0.5);
-            box-shadow: 0 8px 25px rgba(0, 107, 255, 0.3);
         }
         
         .social-link svg {
